@@ -1,0 +1,4 @@
+interface:
+  display_name: "Drive GitHub PR to Clean"
+  short_description: "Develop, review, and stabilize GitHub PRs"
+  default_prompt: "Use $drive-github-pr-to-clean to implement this task, open the PR for review, and iterate until its review state is clean."
