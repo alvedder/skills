@@ -1,4 +1,7 @@
 interface:
   display_name: "Consult Cursor Agent"
-  short_description: "Resolve disputes with Cursor Grok 4.5"
-  default_prompt: "Use $consult-cursor-agent to get a read-only Cursor Grok 4.5 opinion on this design dispute."
+  short_description: "Read-only Cursor second opinion"
+  default_prompt: "Use $consult-cursor-agent to resolve this design dispute with a read-only Cursor consultation."
+
+policy:
+  allow_implicit_invocation: false

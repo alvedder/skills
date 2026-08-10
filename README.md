@@ -10,7 +10,7 @@ Drive a feature or bugfix from source evidence through an open, ready, review-cl
 
 ### `consult-cursor-agent`
 
-Use Cursor Grok 4.5 as a read-only, independent consultant for evidence-backed cross-agent deliberation. It preserves one Cursor chat across follow-up rounds and keeps implementation authority with the calling agent.
+User-invoked, read-only Cursor consultation for evidence-backed cross-agent deliberation. It preserves one Cursor chat across follow-up rounds and keeps implementation authority with the calling agent.
 
 ## Install
 
