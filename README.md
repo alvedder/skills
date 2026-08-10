@@ -6,7 +6,7 @@ Reusable skills for software-engineering agents.
 
 ### `drive-github-pr-to-clean`
 
-Drive a feature or bugfix from source evidence through an open, ready, review-clean GitHub pull request. The skill verifies claims, works on an isolated branch, tests and publishes changes, resolves review feedback, handles linked follow-up PRs, and requires two clean polling cycles before stopping.
+Drive a feature, bugfix, or existing PR through an evidence-backed loop: one isolated PR head, verified changes, valid review fixes, and two clean polls.
 
 ### `consult-cursor-agent`
 
