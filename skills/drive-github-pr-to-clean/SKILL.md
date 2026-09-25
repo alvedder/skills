@@ -26,7 +26,7 @@ For a defect, establish a reproduction, failing regression, or conclusive curren
 2. Run the regression, affected suites, and repository-required checks; broaden by risk. Classify pre-existing, flaky, and inconclusive failures precisely.
 3. Inspect the final diff for scope, generated or migration drift, conflict artifacts, and formatting. Stage only task files, commit coherently, and push the verified original head.
 4. Fetch the base before synchronization. Rebase and reverify when required, then push normally or with the permitted lease.
-5. Locate or create the original PR, make it ready when repository policy permits, and confirm readiness before polling.
+5. Locate or create the original PR, make it ready when repository policy permits, and confirm readiness before the clean-poll cycle.
 
 ## 4. Turn feedback into evidence
 
@@ -40,9 +40,11 @@ When a PR may be a follow-up, read [linked-follow-ups.md](references/linked-foll
 
 ## 5. Prove clean
 
-Use the user-specified interval, or 15 minutes. Use an available wait, monitor, or automation rather than ending between polls. Before starting or restarting a clean-poll cycle, read [clean-polls.md](references/clean-polls.md).
+Use the user-specified interval, or 15 minutes. Before starting or restarting a clean-poll cycle, read [clean-polls.md](references/clean-polls.md).
 
-Stop only after two consecutive clean polls separated by the full interval. Remove any monitor when stopping.
+Arm every interval as a scheduled task that resumes this loop, then end the turn. Wait in-session only when this environment has no scheduler.
+
+Stop only after two consecutive clean polls separated by the full interval. Cancel that wake when stopping.
 
 ## Stop
 
