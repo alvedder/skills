@@ -12,6 +12,10 @@ Drive a feature, bugfix, or existing PR through an evidence-backed loop: one iso
 
 User-invoked, read-only Cursor consultation for evidence-backed cross-agent deliberation. It preserves one Cursor chat across follow-up rounds and keeps implementation authority with the calling agent.
 
+### `humanize`
+
+Improve readability while preserving facts, uncertainty and the requested voice. Includes calibration examples and a linter for style and character-level review.
+
 ## Install
 
 This repository has not been published yet. After its first push, list the available skills:
@@ -34,10 +38,16 @@ skills/
 	│		├── SKILL.md
 	│		└── agents/
 	│				└── openai.yaml
-	└── drive-github-pr-to-clean/
+	├── drive-github-pr-to-clean/
+	│		├── SKILL.md
+	│		└── agents/
+	│				└── openai.yaml
+	└── humanize/
 			├── SKILL.md
-			└── agents/
-					└── openai.yaml
+			├── PATTERNS.md
+			├── EXAMPLES.md
+			├── LINT.md
+			└── scripts/
 ```
 
 Each skill is self-contained. `SKILL.md` is the portable skill definition; `agents/openai.yaml` adds Codex-facing display metadata.
