@@ -1,12 +1,14 @@
 # Clean polls
 
+For heartbeat instruction loads and processed-feedback receipts, use [heartbeat-context.md](heartbeat-context.md) to decide which content must be loaded again.
+
 ## Refresh every poll
 
 Refresh the original PR's head, base, ready state, mergeability, required checks, and observable reviewer jobs after the latest push. Refresh reviews, unresolved threads, comments, linked follow-ups, and activity newer than the watermark.
 
 ## Reset on activity
 
-Reset the clean-poll count to zero for any new review artifact, push, readiness or check-state change, or linked-follow-up activity. Address it, advance the watermark to the newest processed event, and restart the interval. If the base moves and mergeability requires synchronization, rebase the original head, verify and push it, then reset.
+Reset the clean-poll count to zero for any publication, new/changed review artifact, push, readiness or check-state change, linked-follow-up activity or incomplete retrieval. Address it, advance the watermark to the newest processed event, and restart the interval. If the base moves and mergeability requires synchronization, rebase the original head, verify and push it, then reset.
 
 ## Count a clean poll
 
