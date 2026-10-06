@@ -40,11 +40,9 @@ When a PR may be a follow-up, read [linked-follow-ups.md](references/linked-foll
 
 ## 5. Prove clean
 
-Use the user-specified interval, or 15 minutes. Before starting or restarting a clean-poll cycle, use [clean-polls.md](references/clean-polls.md) for gates and [heartbeat-context.md](references/heartbeat-context.md) to validate retained context, decide required reads and save short prompts.
+Before starting or restarting a clean-poll cycle, read [clean-polls.md](references/clean-polls.md) for refreshes, gates and completion criteria.
 
-Arm every interval as a scheduled task that resumes this loop, using the policy evaluator’s `nextEligibleAt` when available, then end the turn. Keep the saved prompt short and cohesive: original checkout, stable task and policy/state/cache paths; refresh all remote evidence every wake. Stay quiet while unchanged and notify on material change, completion, failure or required user action. Wait in-session only when this environment has no scheduler.
-
-Stop only after two consecutive clean polls separated by the full interval. Cancel that wake when stopping, after confirmed merge/closure or user stop, or on terminal scheduler failure. A merge/closure or scheduler failure never proves clean; preserve existing blocker handling and merge authority.
+Before constructing or resuming scheduled wakes, read [heartbeat-context.md](references/heartbeat-context.md) for instruction/feedback reuse, saved prompts and the scheduler lifecycle.
 
 ## Stop
 
