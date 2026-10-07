@@ -40,11 +40,9 @@ When a PR may be a follow-up, read [linked-follow-ups.md](references/linked-foll
 
 ## 5. Prove clean
 
-Use the user-specified interval, or 15 minutes. Before starting or restarting a clean-poll cycle, read [clean-polls.md](references/clean-polls.md).
+Before starting or restarting a clean-poll cycle, read [clean-polls.md](references/clean-polls.md) for refreshes, gates and completion criteria.
 
-Arm every interval as a scheduled task that resumes this loop, then end the turn. Wait in-session only when this environment has no scheduler.
-
-Stop only after two consecutive clean polls separated by the full interval. Cancel that wake when stopping.
+Before constructing or resuming scheduled wakes, read [heartbeat-context.md](references/heartbeat-context.md) for instruction/feedback reuse, saved prompts and the scheduler lifecycle.
 
 ## Stop
 
