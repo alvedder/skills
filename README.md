@@ -20,6 +20,10 @@ User-invoked, read-only Hermes consultation for evidence-backed cross-agent deli
 
 Improve readability while preserving facts, uncertainty and the requested voice. Includes calibration examples and a linter for style and character-level review.
 
+### `squash-rebase`
+
+User-invoked squash of a branch's unique commits into one on its open GitLab MR's target branch, pushed with force-with-lease. Auto-detects commits a stacked lower MR already re-pushed, and rewrites only in a temporary worktree.
+
 ## Install
 
 This repository has not been published yet. After its first push, list the available skills:
@@ -52,6 +56,10 @@ skills/
 	│		├── EXAMPLES.md
 	│		├── LINT.md
 	│		└── scripts/
+	├── squash-rebase/
+	│		├── SKILL.md
+	│		└── agents/
+	│				└── openai.yaml
 	└── to-clean-pr/
 			├── SKILL.md
 			├── references/

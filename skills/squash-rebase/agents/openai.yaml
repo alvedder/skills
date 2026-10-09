@@ -1,0 +1,7 @@
+interface:
+  display_name: "Squash Rebase"
+  short_description: "Squash onto the MR target and force-with-lease push"
+  default_prompt: "Use $squash-rebase to squash this branch onto its MR target and force-with-lease push."
+
+policy:
+  allow_implicit_invocation: false
