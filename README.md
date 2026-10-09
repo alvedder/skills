@@ -12,6 +12,10 @@ Drive a feature, bugfix, or existing GitHub PR or GitLab MR through an evidence-
 
 User-invoked, read-only Cursor consultation for evidence-backed cross-agent deliberation. It preserves one Cursor chat across follow-up rounds and keeps implementation authority with the calling agent.
 
+### `consult-hermes-agent`
+
+User-invoked, read-only Hermes consultation for evidence-backed cross-agent deliberation. It fences Hermes to file tools with workspace writes blocked, resumes one session across follow-up rounds, and keeps implementation authority with the calling agent.
+
 ### `humanize`
 
 Improve readability while preserving facts, uncertainty and the requested voice. Includes calibration examples and a linter for style and character-level review.
@@ -35,6 +39,10 @@ npx skills add alvedder/skills --skill <skill-name>
 ```text
 skills/
 	├── consult-cursor-agent/
+	│		├── SKILL.md
+	│		└── agents/
+	│				└── openai.yaml
+	├── consult-hermes-agent/
 	│		├── SKILL.md
 	│		└── agents/
 	│				└── openai.yaml
