@@ -6,7 +6,7 @@ For instruction loads and processed-feedback receipts, read [heartbeat-context.m
 
 ## Refresh every poll
 
-Refresh the original and explicitly linked PR identities, heads, bases, ready states and mergeability. Refresh required/applicable CI checks, workflows and jobs, observable reviewer jobs after the latest push, all reviews, unresolved threads, comments and explicit linked activity.
+Refresh the original and explicitly linked PR identities, heads, bases, ready states and mergeability. Refresh required/applicable CI checks, workflows or pipelines, and jobs, observable reviewer jobs after the latest push, all reviews, unresolved threads, comments and explicit linked activity. Read each signal as the platform reference defines it ([github.md](github.md), [gitlab.md](gitlab.md)).
 
 ## Reset on activity
 
@@ -16,7 +16,7 @@ Reset the clean-poll count to zero for any push, published PR/comment/thread cha
 
 Repository instructions and explicit workflow policy define required checks and reviews. Count a poll as clean only when all of these hold:
 
-- The original PR is open, ready and mergeable; every required and applicable CI check, workflow and job is terminal and passing.
+- The original PR is open, ready and mergeable; every required and applicable CI check, workflow or pipeline, and job is terminal and passing.
 - Every required review is completed on the exact published head. Unavailable or unobservable required review prevents qualification.
 - Observable advisory reviewer jobs after the latest push are terminal. Failed or unavailable advisory review is a disclosed limitation, never completed review.
 - The original and linked PRs have no actionable comment or unresolved review thread.

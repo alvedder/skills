@@ -1,0 +1,4 @@
+interface:
+  display_name: "Drive PR to Clean"
+  short_description: "Evidence-backed GitHub PR and GitLab MR lifecycle"
+  default_prompt: "Use $to-clean-pr to take this PR or MR through evidence-backed review clean."

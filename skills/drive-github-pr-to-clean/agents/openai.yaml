@@ -1,4 +1,0 @@
-interface:
-  display_name: "Drive GitHub PR to Clean"
-  short_description: "Evidence-backed GitHub PR lifecycle"
-  default_prompt: "Use $drive-github-pr-to-clean to take this PR through evidence-backed review clean."

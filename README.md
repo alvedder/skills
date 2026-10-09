@@ -4,9 +4,9 @@ Reusable skills for software-engineering agents.
 
 ## Available skills
 
-### `drive-github-pr-to-clean`
+### `to-clean-pr`
 
-Drive a feature, bugfix, or existing PR through an evidence-backed loop: one isolated PR head, verified changes, valid review fixes, and two clean polls.
+Drive a feature, bugfix, or existing GitHub PR or GitLab MR through an evidence-backed loop: one isolated head, verified changes, valid review fixes, and two clean polls.
 
 ### `consult-cursor-agent`
 
@@ -38,16 +38,17 @@ skills/
 	│		├── SKILL.md
 	│		└── agents/
 	│				└── openai.yaml
-	├── drive-github-pr-to-clean/
+	├── humanize/
 	│		├── SKILL.md
-	│		└── agents/
-	│				└── openai.yaml
-	└── humanize/
+	│		├── PATTERNS.md
+	│		├── EXAMPLES.md
+	│		├── LINT.md
+	│		└── scripts/
+	└── to-clean-pr/
 			├── SKILL.md
-			├── PATTERNS.md
-			├── EXAMPLES.md
-			├── LINT.md
-			└── scripts/
+			├── references/
+			└── agents/
+					└── openai.yaml
 ```
 
 Each skill is self-contained. `SKILL.md` is the portable skill definition; `agents/openai.yaml` adds Codex-facing display metadata.

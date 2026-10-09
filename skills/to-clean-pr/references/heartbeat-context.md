@@ -4,7 +4,7 @@ Retain validated instructions and processed-feedback receipts between wakes.
 
 ## Validate context
 
-A usable-context ID is an opaque identifier for the instruction content currently loaded in the agent's context. Keep private receipts under the original checkout/task's uncommitted working directory so they survive wakes. Record authoritative paths, including the skill entry point, both clean-poll and heartbeat-context references, and governing repository guidance.
+A usable-context ID is an opaque identifier for the instruction content currently loaded in the agent's context. Keep private receipts under the original checkout/task's uncommitted working directory so they survive wakes. Record authoritative paths, including the skill entry point, the clean-polls, heartbeat-context and platform references, and governing repository guidance.
 
 Record instruction paths and content hashes after actual full loads. Reuse while that loaded content remains usable and its hashes match. Context loss/reset, changed documents or unverifiable receipts require full reloads. After loss, reset or uncertainty choose a fresh usable-context ID; establish usability by loading source content again.
 

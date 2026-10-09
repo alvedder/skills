@@ -1,20 +1,23 @@
 ---
-name: drive-github-pr-to-clean
-description: 'Drive a GitHub PR to evidence-backed review clean: verify the requested feature or defect, use one isolated PR head, implement, test, publish, resolve valid feedback, and confirm two clean polls. Use for end-to-end feature or bugfix PR work, review feedback, CI failures, safe PR rebases, or recurring PR-cleanliness checks.'
+name: to-clean-pr
+description: 'Drive a GitHub PR or GitLab MR to evidence-backed review clean: verify the requested feature or defect, use one isolated head, implement, test, publish, resolve valid feedback, and confirm two clean polls. Use for end-to-end feature or bugfix PR/MR work, review feedback, CI failures, safe rebases, or recurring cleanliness checks.'
 ---
 
-# Drive GitHub PR to Clean
+# Drive PR to Clean
 
 Run a **tight PR loop**: evidence → original head → review → two clean polls.
 
+PR means a GitHub pull request or GitLab merge request; head is its source branch, base its target branch.
+
 ## 1. Orient
 
-1. Read the exact issue or PR, acceptance criteria or reproduction, linked artifacts, and repository instructions.
-2. Inspect the worktree, remotes, default/base/head branches, divergence, mergeability, existing PR, checks, reviews, unresolved threads, comments, and follow-up activity.
-3. Attach to the original PR head when one exists; otherwise create one dedicated task branch from the intended base.
-4. Record an activity watermark from the newest PR, review, thread, comment, check, or linked-follow-up event; use it to detect later activity, not to skip existing feedback.
+1. Name the platform from the PR URL (`/pull/` GitHub, `/-/merge_requests/` GitLab), else from the `origin` host and its authenticated CLI. Read [github.md](references/github.md) or [gitlab.md](references/gitlab.md) before acting; it maps each signal below to the platform's fields and commands.
+2. Read the exact issue or PR, acceptance criteria or reproduction, linked artifacts, and repository instructions.
+3. Inspect the worktree, remotes, default/base/head branches, divergence, mergeability, existing PR, checks, reviews, unresolved threads, comments, and follow-up activity.
+4. Attach to the original PR head when one exists; otherwise create one dedicated task branch from the intended base.
+5. Record an activity watermark from the newest PR, review, thread, comment, check, or linked-follow-up event; use it to detect later activity, not to skip existing feedback.
 
-Keep branch integrity: work only on the original head, preserve unrelated changes, and use a separate worktree when needed. Rebase that head only when required; when policy blocks a rebase, stop rather than merge the base into the head. Use `--force-with-lease` only for an agent-owned original head. Merge a PR only on explicit user request.
+Keep branch integrity: work only on the original head, preserve unrelated changes, and use a separate worktree when needed. Rebase that head only when required; when policy blocks a rebase, stop rather than merge the base into the head. Use `--force-with-lease` only for an agent-owned original head. Merge a PR, auto-merge included, only on explicit user request.
 
 ## 2. Prove the change
 
