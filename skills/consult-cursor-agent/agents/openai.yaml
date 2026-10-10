@@ -1,7 +1,0 @@
-interface:
-  display_name: "Consult Cursor Agent"
-  short_description: "Read-only Cursor second opinion"
-  default_prompt: "Use $consult-cursor-agent to resolve this design dispute with a read-only Cursor consultation."
-
-policy:
-  allow_implicit_invocation: false

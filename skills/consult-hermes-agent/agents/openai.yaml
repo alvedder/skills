@@ -1,7 +1,0 @@
-interface:
-  display_name: "Consult Hermes Agent"
-  short_description: "Read-only Hermes second opinion"
-  default_prompt: "Use $consult-hermes-agent to resolve this design dispute with a read-only Hermes consultation."
-
-policy:
-  allow_implicit_invocation: false
