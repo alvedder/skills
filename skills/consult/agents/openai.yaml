@@ -1,0 +1,7 @@
+interface:
+  display_name: "Consult"
+  short_description: "Read-only second opinion from another agent"
+  default_prompt: "Use $consult cursor to resolve this design dispute with a read-only second opinion."
+
+policy:
+  allow_implicit_invocation: false

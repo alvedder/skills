@@ -8,13 +8,13 @@ Reusable skills for software-engineering agents.
 
 Drive a feature, bugfix, or existing GitHub PR or GitLab MR through an evidence-backed loop: one isolated head, verified changes, valid review fixes, and two clean polls.
 
-### `consult-cursor-agent`
+### `delegate-to`
 
-User-invoked, read-only Cursor consultation for evidence-backed cross-agent deliberation. It preserves one Cursor chat across follow-up rounds and keeps implementation authority with the calling agent.
+Delegate any task to an external agent CLI (`/delegate-to cursor`, `/delegate-to hermes`). Write tasks run in the backend's own git worktree, in the background, under the backend's own approvals; the calling agent verifies the result and resumes the same session for follow-ups. Add a backend by adding `backends/<name>.md`.
 
-### `consult-hermes-agent`
+### `consult`
 
-User-invoked, read-only Hermes consultation for evidence-backed cross-agent deliberation. It fences Hermes to file tools with workspace writes blocked, resumes one session across follow-up rounds, and keeps implementation authority with the calling agent.
+User-invoked, read-only second opinion from another agent (`/consult <backend>`) for contested design, debugging, architecture, security, or trade-off questions. Runs through `delegate-to`'s read-only mode with evidence and rebuttal rounds in one session; install it together with `delegate-to`.
 
 ### `humanize`
 
@@ -42,12 +42,15 @@ npx skills add alvedder/skills --skill <skill-name>
 
 ```text
 skills/
-	├── consult-cursor-agent/
+	├── consult/
 	│		├── SKILL.md
 	│		└── agents/
 	│				└── openai.yaml
-	├── consult-hermes-agent/
+	├── delegate-to/
 	│		├── SKILL.md
+	│		├── backends/
+	│		│		├── cursor.md
+	│		│		└── hermes.md
 	│		└── agents/
 	│				└── openai.yaml
 	├── humanize/

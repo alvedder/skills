@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delegate To"
+  short_description: "Hand a task to Cursor, Hermes, or another agent CLI"
+  default_prompt: "Use $delegate-to cursor to implement this change in an isolated worktree."

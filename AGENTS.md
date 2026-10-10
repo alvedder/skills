@@ -4,7 +4,7 @@
 - Store each skill in `skills/<skill-name>/`.
 - Keep the folder name and `SKILL.md` frontmatter `name` identical.
 - Require valid YAML frontmatter with `name` and `description`.
-- Keep skill instructions portable; isolate agent-specific metadata under `agents/`.
+- Keep skill instructions portable; isolate agent-specific metadata under `agents/`, except `disable-model-invocation` frontmatter on user-invoked skills.
 - Keep the root README catalog synchronized with the skills present.
 - Run `npx skills add . --list` before publishing.
 - Never commit credentials, private repository data, or task-specific artifacts.
