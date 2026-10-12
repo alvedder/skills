@@ -1,6 +1,6 @@
 ---
 name: squash-rebase
-description: "User-invoked: squash a branch's unique commits into one on its open GitLab MR's target branch, then force-with-lease push. Run only when the user explicitly asks to squash-rebase. Auto-detects commits a stacked lower MR already re-pushed."
+description: "User-invoked: squash a branch's unique commits onto its open GitLab MR's target branch, one commit per consecutive same-author run with that author kept, then force-with-lease push. Run only when the user explicitly asks to squash-rebase. Auto-detects commits a stacked lower MR already re-pushed."
 compatibility: "Requires git 2.26+, an authenticated glab CLI, and the MR's GitLab project as the origin remote."
 ---
 
@@ -114,16 +114,30 @@ git range-diff <fork-point>..<recorded-tip> <target-base>..HEAD
 
 Each old commit appears exactly once: `<` is **dropped**, `=` or `!` is **kept**. Any `>` line (a new commit with no old counterpart) is a stop. Named: the kept set is exactly the named SHAs, else stop. Auto-detect: an empty kept set is a stop.
 
-Print dropped and kept, with SHAs and subjects, then record `<replay-tree>`: `git rev-parse HEAD^{tree}`.
+Print dropped and kept, with SHAs and subjects.
+
+### Author runs
+
+Group the kept commits into **author runs**: maximal sequences of consecutive kept commits with the same author, compared as `%an <%ae>` exactly. Kept 1A 2A 3B 4B 5A make three runs: 1A+2A, 3B+4B, 5A. Runs form over kept commits only, so kept 1A and 3A around a dropped 2B form one run.
+
+```bash
+git log --reverse --format='%H%x09%an <%ae>%x09%aI%x09%s' <target-base>..HEAD
+```
+
+Record each run, oldest first: `<run-author>`, `<run-date>` (its oldest commit's `%aI`), its commits, `<run-newest>`, and `<run-tree>` (`git rev-parse <run-newest>^{tree}`).
 
 ## 6. Squash
 
-Read the full message of every kept commit. Write one subject and body covering their combined change: reuse their conventional-commit type, scope, and ticket id, and name each kept commit's behavior. Dropped commits are already on `<target>` and stay out of the message.
+Make one commit per author run, oldest run first. `<previous>` starts as `<target-base>` and then becomes each new commit. For each run:
 
-```bash
-git reset --soft <target-base>
-git commit
-```
+1. Read the full message of every commit in the run. Write one subject and body covering the run's combined change: reuse their conventional-commit type, scope, and ticket id, name each commit's behavior, and keep every `Co-authored-by` trailer. Dropped commits are already on `<target>` and stay out of every message.
+2. Commit the run's tree as the run's author:
+
+   ```bash
+   git checkout --detach <run-newest>
+   git reset --soft <previous>
+   git commit --author="<run-author>" --date="<run-date>"
+   ```
 
 When the hook fails only because `node_modules` is missing in `<temp>` and **repo** has one, link it and retry the same commit:
 
@@ -135,11 +149,11 @@ Any other hook failure is a stop with the hook output.
 
 ## 7. Verify
 
-All three hold, or stop:
+All hold, or stop:
 
-- `git rev-parse HEAD^` is `<target-base>`.
-- `git rev-list --count <target-base>..HEAD` is `1`.
-- `git rev-parse HEAD^{tree}` is `<replay-tree>`: the squash carries exactly the kept commits' combined change. A hook that rewrote files breaks this; stop with `git diff <replay-tree> HEAD`.
+- `git rev-list --count <target-base>..HEAD` is `<n>`, the number of author runs.
+- `git rev-parse HEAD~<n>` is `<target-base>`.
+- Each new commit, oldest first (`git log --reverse --format='%H%x09%T%x09%an <%ae>%x09%aI' <target-base>..HEAD`), matches its run: tree `<run-tree>`, author `<run-author>`, date `<run-date>`. A tree mismatch means a hook rewrote files; stop with `git diff <run-tree> <commit>`.
 
 ## 8. Push
 
@@ -169,8 +183,8 @@ In order:
 2. Old remote tip (`<recorded-tip>`).
 3. New tip.
 4. Target base (`<target-base>`).
-5. Dropped versus kept commits, and old SHAs to the new SHA.
-6. Final commit subject.
+5. Dropped versus kept commits, and each author run: author, old SHAs, new SHA.
+6. Each new commit's subject.
 7. Conflicts and how each was resolved, or clean.
 8. Push result.
 9. MR URL, source, target, and state.

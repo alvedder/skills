@@ -22,7 +22,7 @@ Improve readability while preserving facts, uncertainty and the requested voice.
 
 ### `squash-rebase`
 
-User-invoked squash of a branch's unique commits into one on its open GitLab MR's target branch, pushed with force-with-lease. Auto-detects commits a stacked lower MR already re-pushed, and rewrites only in a temporary worktree.
+User-invoked squash of a branch's unique commits onto its open GitLab MR's target branch, one commit per consecutive same-author run with that author kept, pushed with force-with-lease. Auto-detects commits a stacked lower MR already re-pushed, and rewrites only in a temporary worktree.
 
 ## Install
 
