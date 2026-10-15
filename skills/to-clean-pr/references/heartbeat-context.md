@@ -14,7 +14,7 @@ Receipts preserve decisions; every wake still refreshes remote state per [clean-
 
 ## Wake prompt
 
-Save a short prompt naming the original checkout, stable task, instruction paths and receipt/state paths. Its bootstrap reloads instructions unless they are verifiably loaded in the current context. Use a repository prompt generator when one exists.
+Save a short prompt of pointers in plain words: the original checkout, stable task, instruction paths and receipt/state paths. Its bootstrap reloads instructions unless they are verifiably loaded in the current context. Rewrite it whole each time. Heads, counts, run IDs, timestamps and task guardrails live in receipts or the task handoff, so each wake reads current state rather than a stale copy. Use a repository prompt generator when one exists.
 
 ## Schedule and stop
 
