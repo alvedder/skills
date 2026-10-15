@@ -6,7 +6,7 @@ For instruction loads and processed-feedback receipts, read [heartbeat-context.m
 
 ## Refresh every poll
 
-Refresh the original and explicitly linked PR identities, heads, bases, ready states and mergeability. Refresh required/applicable CI checks, workflows or pipelines, and jobs, observable reviewer jobs after the latest push, all reviews, unresolved threads, comments and explicit linked activity. Read each signal as the platform reference defines it ([github.md](github.md), [gitlab.md](gitlab.md)).
+Refresh the original and explicitly linked PR identities, heads, bases, ready states and mergeability. Refresh every check (CI checks, workflows or pipelines, jobs, reviewer jobs) on the latest push, all reviews, unresolved threads, comments and explicit linked activity. Read each signal as the platform reference defines it ([github.md](github.md), [gitlab.md](gitlab.md)).
 
 ## Reset on activity
 
@@ -14,14 +14,14 @@ Reset the clean-poll count to zero for any push, published PR/comment/thread cha
 
 ## Count a clean poll
 
-Repository instructions and explicit workflow policy define required checks and reviews. Count a poll as clean only when all of these hold:
+Repository instructions and explicit workflow policy define required reviews. Count a poll as clean only when all of these hold:
 
-- The original PR is open, ready and mergeable; every required and applicable CI check, workflow or pipeline, and job is terminal and passing.
+- The original PR is open, ready and mergeable.
+- Every check on the exact published head (CI check, workflow or pipeline, job, reviewer job; required or not) is terminal and **green**: passing, neutral, or a reviewer stopped by its usage limit, which the check's own output states. Anything else is **red**.
 - Every required review is completed on the exact published head. Unavailable or unobservable required review prevents qualification.
-- Observable advisory reviewer jobs after the latest push are terminal. Failed or unavailable advisory review is a disclosed limitation, never completed review.
 - The original and linked PRs have no actionable comment or unresolved review thread.
 - Every valid follow-up proposal is covered or defensibly dismissed on the original head; no unique valid follow-up change remains uncovered.
 - Every follow-up eligible to close is closed. Any open follow-up is covered or dismissed, ineligible to close, and identified in the report.
 - No verified fix remains uncommitted or unpushed.
 
-If optional reviewer completion is not observable, report "no new feedback observed", not "review completed". Both qualifying polls are still required.
+When an optional reviewer is stopped by its usage limit or its completion is not observable, report "no new feedback observed", not "review completed". Both qualifying polls are still required.
