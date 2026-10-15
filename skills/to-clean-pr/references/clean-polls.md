@@ -1,27 +1,31 @@
 # Clean polls
 
-Use the user-specified interval, or 15 minutes. Completion requires two consecutive qualifying polls separated by the full interval.
+Clean means two consecutive qualifying polls separated by the full interval: the user's, else 15 minutes.
 
-For instruction loads and processed-feedback receipts, read [heartbeat-context.md](heartbeat-context.md) at the context-validation step.
+## Each poll
 
-## Refresh every poll
+Refresh the original and linked PRs: identity, head, base, readiness, mergeability, every check on the latest push, reviews, threads, comments and linked activity, read as the platform reference defines them.
 
-Refresh the original and explicitly linked PR identities, heads, bases, ready states and mergeability. Refresh every check (CI checks, workflows or pipelines, jobs, reviewer jobs) on the latest push, all reviews, unresolved threads, comments and explicit linked activity. Read each signal as the platform reference defines it ([github.md](github.md), [gitlab.md](gitlab.md)).
+Reset the count to zero on any push, PR/comment/thread/review change, readiness or check-state change, linked activity or incomplete retrieval. Process changed feedback and retry failed reads before advancing the watermark, then restart the interval. A read failing identically on three consecutive polls spanning the interval is a stall. When the base moves and mergeability needs it, rebase the original head, verify, push and reset.
 
-## Reset on activity
+## Qualify
 
-Reset the clean-poll count to zero for any push, published PR/comment/thread change, new/changed review artifact, readiness or check-state change, linked activity or incomplete retrieval. Fully process changed feedback and retry incomplete retrieval before advancing the processed-event watermark; then restart the interval. If the base moves and mergeability requires synchronization, rebase the original head, verify and push it, then reset.
-
-## Count a clean poll
-
-Repository instructions and explicit workflow policy define required reviews. Count a poll as clean only when all of these hold:
+A poll qualifies only when:
 
 - The original PR is open, ready and mergeable.
-- Every check on the exact published head (CI check, workflow or pipeline, job, reviewer job; required or not) is terminal and **green**: passing, neutral, or a reviewer stopped by its usage limit, which the check's own output states. Anything else is **red**.
-- Every required review is completed on the exact published head. Unavailable or unobservable required review prevents qualification.
-- The original and linked PRs have no actionable comment or unresolved review thread.
-- Every valid follow-up proposal is covered or defensibly dismissed on the original head; no unique valid follow-up change remains uncovered.
-- Every follow-up eligible to close is closed. Any open follow-up is covered or dismissed, ineligible to close, and identified in the report.
-- No verified fix remains uncommitted or unpushed.
+- Every check on the exact published head, required or not, is terminal and **green**: passing, neutral, or a reviewer stopped by its usage limit as its own output states. Anything else is **red**, except a **superseded** check (its run never executed, and a newer run of the same workflow, event, ref and head passed, as the platform reference proves): disclosed, never counted as passing.
+- Every review that repository instructions or workflow policy require is completed on the exact published head; an unobservable required review blocks.
+- The original and linked PRs have no actionable comment or unresolved thread.
+- Every valid follow-up proposal is covered or defensibly dismissed on the original head; follow-ups eligible to close are closed, and any left open are reported.
+- No verified fix is uncommitted or unpushed.
 
-When an optional reviewer is stopped by its usage limit or its completion is not observable, report "no new feedback observed", not "review completed". Both qualifying polls are still required.
+For an optional reviewer stopped by its usage limit or with unobservable completion, report "no new feedback observed", not "review completed".
+
+## Report
+
+Report **health** (current checks, reviews and feedback, from the records retrieved) apart from **qualification** (poll count and evidence completeness). Incomplete evidence never qualifies and is no health failure:
+
+```text
+Health (retrieved records): checks green; 0 unresolved threads; no actionable feedback.
+Qualification: 0/2; the run log read for cancelled job 115 fails identically on 3 polls. Stall: repair the collector's log read.
+```

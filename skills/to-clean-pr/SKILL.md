@@ -1,54 +1,42 @@
 ---
 name: to-clean-pr
-description: 'Drive a GitHub PR or GitLab MR to evidence-backed review clean: verify the requested feature or defect, use one isolated head, implement, test, publish, resolve valid feedback, and confirm two clean polls. Use for end-to-end feature or bugfix PR/MR work, review feedback, CI failures, safe rebases, or recurring cleanliness checks.'
+description: 'Drive a GitHub PR or GitLab MR to evidence-backed clean: one original head, verified changes, valid feedback resolved, two clean polls. Use for feature or bugfix PR/MR work, review feedback, CI failures, rebases, or recurring PR cleanliness checks.'
 ---
 
 # Drive PR to Clean
 
-Run a **tight PR loop**: evidence → original head → review → two clean polls.
-
-PR means a GitHub pull request or GitLab merge request; head is its source branch, base its target branch.
+Run a **tight PR loop**: evidence → original head → review → two clean polls. Before acting, read [github.md](references/github.md) or [gitlab.md](references/gitlab.md) for the PR's platform signals.
 
 ## 1. Orient
 
-1. Name the platform from the PR URL (`/pull/` GitHub, `/-/merge_requests/` GitLab), else from the `origin` host and its authenticated CLI. Read [github.md](references/github.md) or [gitlab.md](references/gitlab.md) before acting; it maps each signal below to the platform's fields and commands.
-2. Read the exact issue or PR, acceptance criteria or reproduction, linked artifacts, and repository instructions.
-3. Inspect the worktree, remotes, default/base/head branches, divergence, mergeability, existing PR, checks, reviews, unresolved threads, comments, and follow-up activity.
-4. Attach to the original PR head when one exists; otherwise create one dedicated task branch from the intended base.
-5. Record an activity watermark from the newest PR, review, thread, comment, check, or linked-follow-up event; use it to detect later activity, not to skip existing feedback.
+Read the task, repository instructions and the PR's current state. Attach to the original PR head, or create one task branch from the intended base. Record an activity watermark from the newest event to detect later activity; existing feedback still gets processed.
 
-Keep branch integrity: work only on the original head, preserve unrelated changes, and use a separate worktree when needed. Rebase that head only when required; when policy blocks a rebase, stop rather than merge the base into the head. Use `--force-with-lease` only for an agent-owned original head. Merge a PR, auto-merge included, only on explicit user request.
+Branch integrity:
+
+- Work only on the original head; preserve unrelated changes, using a separate worktree when needed.
+- Rebase only when required, then reverify; when policy blocks a rebase, stop rather than merge the base in. Use `--force-with-lease` only on an agent-owned head.
+- Merge, auto-merge included, only on explicit user request.
 
 ## 2. Prove the change
 
-For a defect, establish a reproduction, failing regression, or conclusive current-code path. If none exists, report what was tested and stop as unverified. For a feature, make acceptance criteria observable. Change the root-cause variants and touched regression seams; report adjacent work separately.
+Defect: establish a reproduction, failing regression or conclusive code path; without one, report what was tested and stop as unverified. Feature: make the acceptance criteria observable. Fix every variant of the root cause; report adjacent work separately.
 
 ## 3. Change and publish
 
-1. Write a red regression where practical, then implement the smallest coherent change.
-2. Run the regression, affected suites, and repository-required checks; broaden by risk. Classify pre-existing, flaky, and inconclusive failures precisely.
-3. Inspect the final diff for scope, generated or migration drift, conflict artifacts, and formatting. Stage only task files, commit coherently, and push the verified original head.
-4. Fetch the base before synchronization. Rebase and reverify when required, then push normally or with the permitted lease.
-5. Locate or create the original PR, make it ready when repository policy permits, and confirm readiness before the clean-poll cycle.
+1. Write a red regression where practical, make the smallest coherent change, run affected suites and repository-required checks, and push the verified original head with only task files committed.
+2. Decide readiness for the original PR and each authorized task-owned companion. Ready is the default; draft needs an explicit user or repository-policy requirement, and unrun qualification is one only where that policy says so. Record the source and reason; a human keep-draft preference persists across wakes.
+3. Promote with the platform's ready command, then re-read the PR, head and ready state. Done when they match the intended PR and head; a changed head needs revalidation. Remove stale keep-draft wording from the PR body. Ready means reviewable, not qualified, clean or mergeable.
 
 ## 4. Turn feedback into evidence
 
-Treat every review, comment, bot patch, and follow-up proposal as a claim.
-
-1. Trace the cited code and reproduce the claim or establish equivalent evidence.
-2. Put each valid fix and its regression coverage on the original head, verify it, then push it.
-3. Post concise evidence for every dismissal. Resolve a thread only after its remote fix or dismissal evidence exists, and reply clearly to non-thread feedback.
-
-When a PR may be a follow-up, read [linked-follow-ups.md](references/linked-follow-ups.md) before acting on it.
+Every review, comment, bot patch and follow-up proposal is a **claim**: trace and reproduce it before acting. Put valid fixes with regression coverage on the original head and push them. Post evidence for each dismissal; resolve a thread only once its pushed fix or dismissal evidence exists. For a possible follow-up PR, read [linked-follow-ups.md](references/linked-follow-ups.md).
 
 ## 5. Prove clean
 
-Before starting or restarting a clean-poll cycle, read [clean-polls.md](references/clean-polls.md) for refreshes, gates and completion criteria.
-
-Before constructing or resuming scheduled wakes, read [heartbeat-context.md](references/heartbeat-context.md) for instruction/feedback reuse, saved prompts and the scheduler lifecycle.
+Read [clean-polls.md](references/clean-polls.md) before starting a clean-poll cycle, and [heartbeat-context.md](references/heartbeat-context.md) before scheduling or resuming wakes.
 
 ## Stop
 
-Report a blocker only for missing authority, product decisions, permissions, unavailable infrastructure, or repeated non-actionable failure after bounded retries. Unless the user separately asks to merge, leave the original PR open and ready.
+Report a blocker only for missing authority, product decisions, permissions, unavailable infrastructure, or a **stall**: the same blocker unchanged after bounded retries, such as a draft with no authorized transition or a read failing identically. Name its next action (promote or cite the draft gate, retry a transient read, repair a broken collector), notify once, pause that portion with its resume condition, and continue independent ones. Running CI, pending review and the poll interval are progress. A stall proves nothing about whether evidence is absent or superseded.
 
-Report the PR and final head, implemented and dismissed findings, validation evidence, review and follow-up state, two-poll evidence, and residual risk, skipped validation, or blockers.
+Leave the original PR open and ready. Report the PR and final head, implemented and dismissed findings, validation, follow-up state, [health and qualification](references/clean-polls.md#report), and residual risk or skipped validation.
