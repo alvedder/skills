@@ -18,6 +18,10 @@ Save a short prompt of pointers in plain words: the original checkout, stable ta
 
 ## Schedule and stop
 
-Schedule the next wake at the evaluator's `nextEligibleAt`, else the poll interval, then end the turn; wait in-session only without a scheduler. Stay quiet while unchanged; notify on material change, completion, failure or required action. Handle a stall per the skill's Stop section, and keep waking for portions still progressing.
+Use an available scheduler, routine, or equivalent wake mechanism supported by the governing repository policy for CI/review waits and poll intervals. Schedule the next wake at the evaluator's `nextEligibleAt`, else the poll interval; verify it is armed, then end the turn. Continue independent work before yielding when useful.
+
+If no supported scheduler is available, save the current evidence, pending gates and next eligible time; report that automatic continuation is unavailable, then end the turn. Do not substitute repeated in-session `sleep` calls or polling loops, or invent a scheduler outside repository policy. Waiting for an already running tool to finish is separate from scheduling the next PR poll.
+
+Stay quiet while unchanged; notify on material change, completion, failure or required action. Handle a stall per the skill's Stop section, and keep scheduled wakes for portions still progressing.
 
 Cancel the wake on clean-poll completion, confirmed merge or closure, user stop, or a scheduler that cannot re-arm after bounded recovery. Report that merge, closure and scheduler failure establish no cleanliness.

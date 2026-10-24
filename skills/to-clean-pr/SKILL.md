@@ -33,7 +33,7 @@ Every review, comment, bot patch and follow-up proposal is a **claim**: trace an
 
 ## 5. Prove clean
 
-Read [clean-polls.md](references/clean-polls.md) before starting a clean-poll cycle, and [heartbeat-context.md](references/heartbeat-context.md) before scheduling or resuming wakes.
+Read [clean-polls.md](references/clean-polls.md) before starting a clean-poll cycle, and [heartbeat-context.md](references/heartbeat-context.md) before waiting for CI/review, scheduling the next poll, or resuming wakes.
 
 ## Stop
 
