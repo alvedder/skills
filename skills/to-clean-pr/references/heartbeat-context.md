@@ -18,9 +18,9 @@ Save a short prompt of pointers in plain words: the original checkout, stable ta
 
 ## Schedule and stop
 
-Use an available scheduler, routine, or equivalent wake mechanism supported by the governing repository policy for CI/review waits and poll intervals. Schedule the next wake at the evaluator's `nextEligibleAt`, else the poll interval; verify it is armed, then end the turn. Continue independent work before yielding when useful.
+Use your agent environment's own wake mechanism (scheduled task, automation, routine or heartbeat) for CI/review waits and poll intervals; its availability is a property of the environment, not of repository policy. Schedule the next wake at the evaluator's `nextEligibleAt`, else the poll interval; verify it is armed, then end the turn. Continue independent work before yielding when useful.
 
-If no supported scheduler is available, save the current evidence, pending gates and next eligible time; report that automatic continuation is unavailable, then end the turn. Do not substitute repeated in-session `sleep` calls or polling loops, or invent a scheduler outside repository policy. Waiting for an already running tool to finish is separate from scheduling the next PR poll.
+Only when the environment has no wake mechanism, save the current evidence, pending gates and next eligible time, report that automatic continuation is unavailable, and end the turn. Waits belong to that mechanism, never to in-session `sleep` loops or self-built cron or launchd jobs. Waiting for an already running tool to finish is separate from scheduling the next PR poll.
 
 Stay quiet while unchanged; notify on material change, completion, failure or required action. Handle a stall per the skill's Stop section, and keep scheduled wakes for portions still progressing.
 
